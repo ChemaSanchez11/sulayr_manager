@@ -1,0 +1,27 @@
+body, .card-body {
+    background-color: #2a2b3d;
+    color: white;
+}
+
+.bg-dark {
+    border-radius: .25rem;
+    background-color: #313348 !important;
+}
+
+i.rounded-circle {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 2rem !important;
+}
+
+.breadcrumb > li + li::before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
+}
+
+.card {
+    border: 2px solid #313348 !important;
+    background-color: unset !important;
+}
