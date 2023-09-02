@@ -84,10 +84,18 @@
                 <div class="card-body d-flex">
                     <div class="col-6 my-auto">
                         <ul class="list-group">
-                            <li class="bg-dark list-group-item disabled d-flex">Conexion BD <img alt="info" class="my-auto ml-auto" src="./public/images/success.png" style="width: 22px;height: 22px;"></li>
-                            <li class="bg-dark list-group-item disabled d-flex">Dominio CentroRED  <img alt="info" class="my-auto ml-auto" src="./public/images/success.png" style="width: 22px;height: 22px;"></li>
-                            <li class="bg-dark list-group-item disabled d-flex">Datos & Cache <img alt="info" class="my-auto ml-auto" src="./public/images/error.png" style="width: 22px;height: 22px;"></li>
-                            <li class="bg-dark list-group-item disabled d-flex">Certificado SSL <img alt="info" class="my-auto ml-auto" src="./public/images/error.png" style="width: 22px;height: 22px;"></li>
+                            <li class="bg-dark list-group-item disabled d-flex">Conexion BD
+                                <img alt="info" class="my-auto ml-auto" src="./public/images/{{#database}}success{{/database}}{{^database}}error{{/database}}.png" style="width: 22px;height: 22px;">
+                            </li>
+                            <li class="bg-dark list-group-item disabled d-flex">Dominio CentroRED
+                                <img alt="info" class="my-auto ml-auto" src="./public/images/{{#centro_red_domain}}success{{/centro_red_domain}}{{^centro_red_domain}}error{{/centro_red_domain}}.png" style="width: 22px;height: 22px;">
+                            </li>
+                            <li class="bg-dark list-group-item disabled d-flex">Datos & Cache
+                                <img alt="info" class="my-auto ml-auto" src="./public/images/{{#cache_data}}success{{/cache_data}}{{^cache_data}}error{{/cache_data}}.png" style="width: 22px;height: 22px;">
+                            </li>
+                            <li class="bg-dark list-group-item disabled d-flex">Certificado SSL
+                                <img alt="info" class="my-auto ml-auto" src="./public/images/{{#ssl_certificate}}success{{/ssl_certificate}}{{^ssl_certificate}}error{{/ssl_certificate}}.png" style="width: 22px;height: 22px;">
+                            </li>
                         </ul>
                     </div>
                     <div class="col-6">
