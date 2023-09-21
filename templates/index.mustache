@@ -83,6 +83,13 @@
             <div id="collapse-{{id}}" class="collapse" data-visit="{{total}}" data-repeats="{{repeats}}" data-no-repeats="{{no_repeats}}" aria-labelledby="heading-{{id}}" data-parent="container-{{id}}">
                 <div class="card-body d-flex">
                     <div class="col-6 my-auto">
+
+                        <div class="d-flex pl-1">
+                            <h5 class="text-warning">Visitas Totales: <span class="text-white">{{total}}.</span></h5>
+                            <h5 class="ml-2 text-warning">Volvieron a conectarse: <span class="text-white">{{repeats}}.</span></h5>
+                            <h5 class="ml-2 text-warning">Sin Reconexion: <span class="text-white">{{no_repeats}}.</span></h5>
+                        </div>
+
                         <ul class="list-group">
                             <li class="bg-dark list-group-item disabled d-flex">Conexion BD
                                 <img alt="info" class="my-auto ml-auto" src="./public/images/{{#database}}success{{/database}}{{^database}}error{{/database}}.png" style="width: 22px;height: 22px;">
