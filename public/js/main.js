@@ -1,5 +1,10 @@
-$(document).ready(function() {
-    $('.action-collapse').on('click', function (event){
+$(document).ready(function () {
+
+    $('#certificate').on('click', async function (event) {
+        console.log(await renewCertificate());
+    });
+
+    $('.action-collapse').on('click', function (event) {
         event.preventDefault();
 
         let element = $(this);
@@ -7,11 +12,11 @@ $(document).ready(function() {
 
         element.toggleClass('fa-angle-down fa-angle-up');
 
-        let element_collapse = $('#collapse-'+id);
+        let element_collapse = $('#collapse-' + id);
         element_collapse.collapse('toggle');
 
         // Obtén el contexto del lienzo
-        let ctx = document.getElementById('chart-'+id).getContext('2d');
+        let ctx = document.getElementById('chart-' + id).getContext('2d');
 
         // Datos para el gráfico
         let data = {
@@ -50,4 +55,21 @@ $(document).ready(function() {
             options: options
         });
     });
+
+    async function renewCertificate() {
+        const url = '/sulayr_manager/api/renew';
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        };
+
+        try {
+            const response = await fetch(url, options);
+            return await response.json();
+        } catch (e) {
+            console.error(e);
+        }
+    }
 });
