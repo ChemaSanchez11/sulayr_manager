@@ -1,7 +1,51 @@
 $(document).ready(function () {
 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+
     $('#certificate').on('click', async function (event) {
         console.log(await renewCertificate());
+    });
+
+    $('.git-pull').on('click', async function (event) {
+        let response = await gitPull($(this).data('repository'));
+
+        if(response.success) {
+            Toast.fire({
+                icon: "success",
+                title: "Repositorio actualizado"
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: response.output
+            });
+        }
+    });
+
+    $('.git-reset').on('click', async function (event) {
+        let response = await gitReset($(this).data('repository'));
+
+        if(response.success) {
+            Toast.fire({
+                icon: "success",
+                title: response.output
+            });
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: response.output
+            });
+        }
     });
 
     $('.action-collapse').on('click', function (event) {
@@ -55,21 +99,61 @@ $(document).ready(function () {
             options: options
         });
     });
-
-    async function renewCertificate() {
-        const url = '/sulayr_manager/api/renew';
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        };
-
-        try {
-            const response = await fetch(url, options);
-            return await response.json();
-        } catch (e) {
-            console.error(e);
-        }
-    }
 });
+
+async function renewCertificate() {
+    const url = '/sulayr_manager/api/renew';
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+    };
+
+    try {
+        const response = await fetch(url, options);
+        return await response.json();
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+async function gitPull(repository) {
+    const url = '/sulayr_manager/api/git_pull';
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            repository: repository
+        })
+    };
+
+    try {
+        const response = await fetch(url, options);
+        return await response.json();
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+async function gitReset(repository) {
+    const url = '/sulayr_manager/api/git_reset';
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            repository: repository
+        })
+    };
+
+    try {
+        const response = await fetch(url, options);
+        return await response.json();
+    } catch (e) {
+        console.error(e);
+    }
+}

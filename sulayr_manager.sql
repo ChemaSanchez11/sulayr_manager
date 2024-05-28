@@ -14,6 +14,8 @@
  Date: 22/05/2024 21:25:15
 */
 
+USE sulayr_manager;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 

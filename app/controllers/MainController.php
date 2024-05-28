@@ -3,7 +3,7 @@
 global $CFG;
 
 require_once(__DIR__ . '/../../functions/functions.php');
-
+require_once (__DIR__ . '/../../functions/git_manager.php');
 
 $total_connections = 0;
 
@@ -11,6 +11,11 @@ $proyects = [];
 foreach (get_proyects() as $proyect){
 
     $data = json_decode($proyect->data);
+
+    $token = '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';
+
+    $gitManager = new GitManager($proyect->shortname, $token);
+    $commits = json_decode($gitManager->getLogs(), true)['output'] ?? null;
 
     $proyects[] = [
         'id' => $proyect->id,
@@ -24,7 +29,8 @@ foreach (get_proyects() as $proyect){
         'database' => $data->database,
         'ssl_certificate' => $data->ssl_certificate,
         'centro_red_domain' => $data->centro_red_domain,
-        'cache_data' => $data->cache_data
+        'cache_data' => $data->cache_data,
+        'commits' => $commits
     ];
 
     $total_connections += (int) $proyect->total;
