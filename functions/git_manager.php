@@ -5,11 +5,11 @@ class GitManager {
     private $token;
     private $repoUrl;
 
-    public function __construct($repo, $token) {
+    public function __construct($repo) {
         // Directorio del repositorio
         $this->repoDir = __DIR__ . '/../../' . $repo;
         // Token de acceso personal
-        $this->token = $token;
+        $this->token = getenv('GIT_TOKEN');
         // URL del repositorio con el token
         $this->repoUrl = "https://{$this->token}@github.com/ChemaSanchez11/{$repo}.git";
     }

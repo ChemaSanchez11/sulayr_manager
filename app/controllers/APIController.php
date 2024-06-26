@@ -19,9 +19,8 @@ switch ($function) {
         $params = array_merge($_POST, $_GET);
 
         $repo = $params['repository'];
-        $token = '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';
 
-        $gitManager = new GitManager($repo, $token);
+        $gitManager = new GitManager($repo);
         echo $gitManager->pull();
         break;
     case 'git_reset':
@@ -30,9 +29,8 @@ switch ($function) {
         $params = array_merge($_POST, $_GET);
 
         $repo = $params['repository'];
-        $token = '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';
 
-        $gitManager = new GitManager($repo, $token);
+        $gitManager = new GitManager($repo);
         echo $gitManager->reset();
         break;
     case 'git_log':
@@ -41,9 +39,8 @@ switch ($function) {
         $params = $_POST;
 
         $repo = $params['repository'];
-        $token = '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';
 
-        $gitManager = new GitManager($repo, $token);
+        $gitManager = new GitManager($repo);
         echo $gitManager->getLogs();
         break;
 }
