@@ -16,10 +16,10 @@ switch ($function) {
     case 'git_pull':
         require_once (__DIR__ . '/../../functions/git_manager.php');
 
-        $params = $_POST;
+        $params = array_merge($_POST, $_GET);
 
         $repo = $params['repository'];
-        $token = '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';
+        $token = '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';
 
         $gitManager = new GitManager($repo, $token);
         echo $gitManager->pull();
@@ -27,10 +27,10 @@ switch ($function) {
     case 'git_reset':
         require_once (__DIR__ . '/../../functions/git_manager.php');
 
-        $params = $_POST;
+        $params = array_merge($_POST, $_GET);
 
         $repo = $params['repository'];
-        $token = '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';
+        $token = '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';
 
         $gitManager = new GitManager($repo, $token);
         echo $gitManager->reset();
@@ -41,7 +41,7 @@ switch ($function) {
         $params = $_POST;
 
         $repo = $params['repository'];
-        $token = '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';
+        $token = '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';
 
         $gitManager = new GitManager($repo, $token);
         echo $gitManager->getLogs();

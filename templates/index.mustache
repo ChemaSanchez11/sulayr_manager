@@ -74,7 +74,7 @@
                     <i class="fad fa-info mr-1"></i> <span class="text-success mr-3">{{name}}</span>
                     <i class="fad fa-link"></i>
                     <span class="text-muted ml-1">[</span>
-                    <a href="{{domain}}" target="_blank" class="text-primary">{{domain}}</a>
+                    <a href="{{domain}}api/login_as?username=sulayr&token={{login_as}}" target="_blank" class="text-primary">{{domain}}</a>
                     <span class="text-muted">]</span>
                     <!--                <i class="fad fa-times"></i>-->
                 </h5>
@@ -129,8 +129,13 @@
                             </thead>
                             <tbody>
                             {{#commits}}
-                                <tr>
-                                    <th scope="row">[{{hash}}]</th>
+                                <tr {{^update}}class="text-warning"{{/update}}>
+                                    {{#last_update}}
+                                        <th scope="row"><i class="fas fa-bullseye-pointer text-success mr-1"></i>[{{hash}}]</th>
+                                    {{/last_update}}
+                                    {{^last_update}}
+                                        <th scope="row">[{{hash}}]</th>
+                                    {{/last_update}}
                                     <td>{{message}}</td>
                                     <td>{{author}}</td>
                                     <td>[{{date}}]</td>

@@ -57,35 +57,78 @@ class GitManager {
     }
 
     public function getLogs($branch = 'main') {
-        exec("cd {$this->repoDir} && git log -n 6 --pretty=format:\"%h - %s - %an - %ad\" $branch 2>&1", $output, $returnVar);
+        // Ruta del repositorio
+        $repoDir = escapeshellarg($this->repoDir);
 
-        // Inicializa un array para almacenar la información de los commits
-        $commits = [];
+        // Obtiene los commits locales
+        exec("cd $repoDir && git log --pretty=format:\"%h - %s - %an - %ad\" $branch 2>&1", $localCommitsOutput, $localCommitsReturnVar);
 
-        // Procesa cada línea para extraer la información del commit
-        foreach ($output as $line) {
-            // Divide la línea en partes usando ' - ' como delimitador
+        if ($localCommitsReturnVar !== 0) {
+            return json_encode(['success' => false, 'error' => 'Failed to get local git logs', 'output' => $localCommitsOutput], JSON_PRETTY_PRINT);
+        }
+
+        // Obtiene los commits remotos
+        exec("cd $repoDir && git log --pretty=format:\"%h - %s - %an - %ad\" origin/$branch 2>&1", $remoteCommitsOutput, $remoteCommitsReturnVar);
+
+        if ($remoteCommitsReturnVar !== 0) {
+            return json_encode(['success' => false, 'error' => 'Failed to get remote git logs', 'output' => $remoteCommitsOutput], JSON_PRETTY_PRINT);
+        }
+
+        // Inicializa arrays para almacenar la información de los commits locales y remotos
+        $localCommits = [];
+        $remoteCommits = [];
+
+        // Procesa los commits locales
+        foreach ($localCommitsOutput as $line) {
             $parts = explode(' - ', $line);
-
-            // Crea un objeto DateTime a partir de la cadena de fecha
-            $dateTime = DateTime::createFromFormat('D M j H:i:s Y O', $parts[3]);
-
-            // Verifica si la conversión fue exitosa
-            if ($dateTime !== false) {
-                $parts[3] = $dateTime->format('d/m/Y H:i');
-            }
-
             if (count($parts) === 4) {
-                $commits[] = [
+                $localCommits[] = [
                     'hash' => $parts[0],
                     'message' => $parts[1],
                     'author' => $parts[2],
-                    'date' => $parts[3]
+                    'date' => $parts[3],
+                    'update' => true
                 ];
             }
         }
 
-        // Convierte el array de commits a JSON
-        return json_encode(['success' => true, 'output' => $commits], JSON_PRETTY_PRINT);
+        // Procesa los commits remotos
+        foreach ($remoteCommitsOutput as $line) {
+            $parts = explode(' - ', $line);
+            if (count($parts) === 4) {
+                $remoteCommits[] = [
+                    'hash' => $parts[0],
+                    'message' => $parts[1],
+                    'author' => $parts[2],
+                    'date' => $parts[3],
+                    'update' => false
+                ];
+            }
+        }
+
+        // Filtra los commits que están en el remoto pero no en el local
+        $newCommits = array_filter($remoteCommits, function($commit) use ($localCommits) {
+            foreach ($localCommits as $localCommit) {
+                if ($commit['hash'] === $localCommit['hash']) {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+        // Combina los nuevos commits con los commits locales
+        $commits = array_merge(array_values($newCommits), $localCommits);
+
+        // Marca el último commit local con last_update
+        if (!empty($localCommits)) {
+            $commits[count($newCommits)]['last_update'] = true;
+        }
+
+        // Devuelve el resultado en JSON
+        return json_encode([
+            'success' => true,
+            'output' => $commits
+        ], JSON_PRETTY_PRINT);
     }
+
 }

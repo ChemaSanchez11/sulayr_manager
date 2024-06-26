@@ -22,6 +22,7 @@ foreach (get_proyects() as $proyect){
         'shortname' => $proyect->shortname,
         'name' => $proyect->name,
         'domain' => $proyect->domain,
+        'login_as' => md5('{MD5}login_as_sulayr_'.$proyect->shortname),
         'active' => $proyect->id,
         'total' => $proyect->total ?? 0,
         'repeats' => $proyect->repeats ?? 0,

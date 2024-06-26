@@ -14,4 +14,4 @@ $CFG = new stdClass();
 $CFG->shortname = 'leobus';
 $CFG->wwwroot = '/sulayr_manager';
 
-$DB = new DB('localhost', 'root', '', '33306', 'sulayr_manager');
+$DB = new DB('localhost', 'root', '', '3306', 'sulayr_manager');

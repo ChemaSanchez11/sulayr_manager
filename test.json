@@ -1,0 +1,55 @@
+{
+  "success":true,
+  "currentHash":"97824bf",
+  "commits":[
+    {
+      "hash":"9118ced",
+      "message":"Agregado usuario sulayr",
+      "author":"Chema Sanchez",
+      "date":"Thu Jun 13 21:32:33 2024 +0200"
+    },
+    {
+      "hash":"97824bf",
+      "message":"Implementacion login_as",
+      "author":"Chema Sanchez",
+      "date":"Thu Jun 13 21:15:31 2024 +0200",
+      "update": true,
+      "last_update": true
+    },
+    {
+      "hash":"cd82cef",
+      "message":"Cambios edicion blog y producto para ordenar imagenes",
+      "author":"Chema Sanchez",
+      "date":"Wed Jun 5 23:40:46 2024 +0200",
+      "update": true
+    },
+    {
+      "hash":"ec306d3",
+      "message":"Cambios Productos y Card Blog",
+      "author":"josemaria.sanchez@ieditorial.net",
+      "date":"Sun Jun 2 20:58:44 2024 +0200",
+      "update": true
+    },
+    {
+      "hash":"61ed31a",
+      "message":"Edicion de blog e imagen cabecera",
+      "author":"Chema Sanchez",
+      "date":"Thu May 30 22:48:06 2024 +0200",
+      "update": true
+    },
+    {
+      "hash":"c42ec0d",
+      "message":"cambios dise\u00f1o",
+      "author":"josemaria.sanchez@ieditorial.net",
+      "date":"Sun May 19 23:02:44 2024 +0200",
+      "update": true
+    },
+    {
+      "hash":"8a1675d",
+      "message":"Cambios 180524",
+      "author":"ChemaSanchez11",
+      "date":"Sat May 18 12:50:04 2024 +0200",
+      "update": true
+    }
+  ]
+}
